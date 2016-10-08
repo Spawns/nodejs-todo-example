@@ -1,24 +1,8 @@
 language: node_js
 node_js: '6'
-env:
-  global:
-    secure: YUO72c0PPJu68Nt24sLRkCQHpX+vuaW7AhDkfH0ppaN6EIjJsVWW6J7WhAqH3T5VvN7cKKEEGj4pcHkn4xkEZM617/eJwiCb2zFDdvV0Sfqz4pXPdy8sD7tstp9kdlmwDXyjH8W4V//gv9p3K3BJtNs/0zgCq0hsIMw7mIU1ceZq/r2aKlXRdQlwmyqSWL8fh+nKyLES6FAskuaa8yRn44EiPLHR8VnYlMfSjFmC0yLIy/wNCW27+w2NniQrGpNtyO5D3CO6okkoF+BftLFqlyl7N7wojsMnpcy+POBs3i8PMlo3OOBON4U5+C72c0eHyfMxy3S3lZL6d8CqsO2XCGqfHawQdxPSjU3WIsgcGSCcOdmYvL2y7uyv2dvXnSUTRRSep15S1rVgRh1q3C3KufsQe2t1tdsEaXYYbINLh6A2dwI8iHBLYI+ruqs2Ee+gMQtr0WldFQqWkhx6yv/uoCvkcruPCkvUOPcWWdpaEL0aErkwEOTK3jIHPVmZy4gtn/Ep9S/d+Zk9FiB6kgy9jBt/hJxJs7AtrP5ETGvWAxx+EsNgM8jUHqhwL+q/wV2a8FkUvPVugVg4F8uoZd/PmpYaLGd9EU1ET64qdMyYIuZiYCG6fKNkLpF6GNkvRk09quKR4zVw9ouNdDe2rM1e3lPHAQfQinhWTYoURSf5vX4=
-before_install:
-- openssl aes-256-cbc -K $encrypted_033b91806de4_key -iv $encrypted_033b91806de4_iv
-  -in .deploy_key.pem.enc -out .deploy_key.pem -d
 install:
 - npm install
 script:
 - npm run lint
 - npm run build
 - npm run test
-after_success:
-- eval "$(ssh-agent -s)"
-- chmod 600 .deploy_key.pem
-- ssh-add .deploy_key.pem
-- ssh-keyscan 104.199.157.108 >> ~/.ssh/known_hosts
-- git remote add deploy m_mikoff@104.199.157.108:~/node-todo-example
-- git push deploy master -f
-notifications:
-  slack:
-    secure: ptnyWAdgP5uz8JvpEGp1FjY2PqrzuBCascHCHTj8DEeEmzxySyBXyb0WDgodnOyP0SK6G6WuMDm+5iHjT+dPH4+l3uWXjcEGsa0s30rgSHLA3pKiz6xyDphp6Y1yrRVdAchrl5BEAjuiOOBmI+oHQ3Mi7vq9xipeVNL3GtykOzWOwooi2yG1krk3DTXOaz+8XNr3v50hRgynm+SZb+T6cMxthNtV7bHPL6QuACQ3OtI1lDDIDQryXlsVPuZutoLWwn+QkUGnrUYACnLZuy4z8CaEvQsKbWn9kb/SEtKpJ2heRucD2DvUvePgEICgJh59/zraY7pXDnFWGLY5YOCrK8ghTDOO8BfDswypnCS5ACC2c++4iW5AbG95QK9EgCjEKF2kS68hsQaxw983WNqkcPt70q6G37f3CNuXQ6dvgZ8WxPtTmolP517XmMYrQYSQdVItEVaaAcEUg8KNdVVn0RhBhh9my7CiL8/+C0tPtm3cngybtvmH1397zGrL2Pd+FqyQAAj/JI+UnqI4M0NbbESutKGu4nmIDnrplsLJWQeMz2er+rz91lfGqCzoPDx+jKWoApUfpipEgoBoPbK7OARyAEPoY+X29LOzIdhLe3Bqa28WF3XG4AKE6F7GhwJfvFVECrSjGVhmuM85w2IyfUrEosjbzfo0AsLH1PFqnXk=
